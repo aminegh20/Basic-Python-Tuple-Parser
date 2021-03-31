@@ -1,0 +1,29 @@
+X = ('This is', 'the first', 'EECE', 334, 'Assignment')
+print(X)
+
+Y = X[:2]
+print(Y)
+
+Z = X[2:]
+print(Z)
+
+A = Y + Z
+print(A)
+
+A = 'This is a string'
+print(A)
+
+A = 334
+print(A)
+
+(B, C, D, E, F) = X
+print(B)
+print(C)
+print(D)
+print(E)
+print(F)
+
+
+
+
+
