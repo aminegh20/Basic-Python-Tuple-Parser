@@ -8,30 +8,31 @@ import java.util.HashMap;
 
 public class ActionRoutines {
   /**
-   * A static HashMap that maps each available tuple name to its content
-   * that we store in an ArrayList of Objects
+   * A static {@code HashMap} that maps each available tuple name to its content
+   * that we store in an {@code ArrayList} of Objects.
    */
   static HashMap<String, ArrayList<Object>> tuples = new HashMap<String, ArrayList<Object>>();
 
   /**
-   * A static HashMaps that maps each available non-tuple variable (either a string or an integer in this case)
-   * to its value
+   * A static {@code HashMap} that maps each available non-tuple variable (either a string or an integer in this case)
+   * to its value.
    */
   static HashMap<String, Object> variables = new HashMap<String, Object>();
 
   /**
-   * useful for unpacking, e.g, (x1, x2, ...) = T where T is a tuple
-   * used to store x1, x2,... temporarily in order to retrieve their values from T
+   * A static {@code ArrayList} of {@code String} useful for unpacking, e.g, (x1, x2, ...) = T 
+   * where T is a tuple and x1, x2, ... are variable names.
+   * Used to store the names x1, x2,... temporarily in order to retrieve their values from T.
    */
   static ArrayList<String> unpacking = new ArrayList<String>();
 
   /**
-   * Creates an entry in {@code HashMap} tuples called tuple_id
-   * If tuple_id is found in {@code HashMap} variables, it means
-   * that the variable with name tuple_id was previously declared in the
-   * program as either an integer or a string, and hence needs to be removed
-   * from {@code HashMap} variables
-   * @param tuple_id
+   * Creates an entry in {@code HashMap} tuples called tuple_id.
+   * If tuple_id is found in {@code HashMap} variables, it means that the variable with 
+   * name tuple_id was previously declared in the  program as either an integer or a string,
+   * and hence needs to be removed from {@code HashMap} variables.
+   * 
+   * @param tuple_id 
    */
   void create_tuple(String tuple_id) {
     tuples.put(tuple_id, new ArrayList<Object>());
@@ -42,45 +43,39 @@ public class ActionRoutines {
 
   /**
    * Creates an entry in {@code HashMap} variables called string_id and maps it to value
-   * If string_id is found in {@code HashMap} tuples, it means
-   * that the variable with name string_id was previously declared in the
-   * program as a tuple, and hence needs to be removed from {@code HashMap} tuples
-   * @param string_id
-   * @param value
+   * If string_id is found in {@code HashMap} tuples, it means that the variable with name 
+   * string_id was previously declared in the program as a tuple, and hence needs to be removed 
+   * from {@code HashMap} tuples.
+   * 
+   * @param string_id the name of the variable
+   * @param value the value of the variable
    */
   void create_string(String string_id, String value) {
-    if (variables.containsKey(string_id) == false) {
-      variables.put(string_id, value);
-    } else {
-      variables.replace(string_id, value);
-    }
+    variables.put(string_id, value);
     if (tuples.containsKey(string_id) == true) {
       tuples.remove(string_id);
     }
   }
 
   /**
-   * Creates an entry in {@code HashMap} variables called int_id and maps it
-   * to value
-   * If int_id is found in {@code HashMap} tuples, it means
-   * that the variable with name int_id was previously declared in the
-   * program as a tuple, and hence needs to be removed from {@code HashMap} tuples
+   * Creates an entry in {@code HashMap} variables called int_id and maps it to value
+   * If int_id is found in {@code HashMap} tuples, it means that the variable with name int_id 
+   * was previously declared in the  program as a tuple, and hence needs to be removed from 
+   * {@code HashMap} tuples.
+   * 
    * @param int_id
    * @param value
    */
   void create_int(String int_id, int value) {
-    if (variables.containsKey(int_id) == false) {
-      variables.put(int_id, value);
-    } else {
-      variables.replace(int_id, value);
-    }
+    variables.put(int_id, value);
     if (tuples.containsKey(int_id) == true) {
       tuples.remove(int_id);
     }
   }
 
   /**
-   * adds value to the {@code ArrayList<Object>} that {@code String} tuple_id maps to
+   * Adds the specified value to the {@code ArrayList<Object>} that {@code String} tuple_id maps to.
+   * 
    * @param tuple_id
    * @param value
    */
@@ -89,21 +84,24 @@ public class ActionRoutines {
   }
 
   /**
-   * updates the value at index index of the {@code ArrayList} mapped to by {@code String} tuple_id 
-   * @param tuple_id
+   * Updates the value at index index of the {@code ArrayList} mapped to by {@code String} tuple_id.
+   * If index is negative, indexing is readjusted to be relative to the last element.
+   * 
+   * @param tuple_id 
    * @param index
    * @param value
    */
   void update_value(String tuple_id, int index, Object value) {
     if (index < 0) {
-      index = tuples.get(tuple_id).size() + index;
+      index += tuples.get(tuple_id).size();
     }
     tuples.get(tuple_id).set(index, value);
   }
 
   /**
-   * adds the elements of the {@code ArrayList} mapped to b {@code String} tuple_id_2
+   * Adds the elements of the {@code ArrayList} mapped to b {@code String} tuple_id_2
    * to the {@code ArrayList} mapped to by {@code String} tuple_id_1
+   * 
    * @param tuple_id_1
    * @param tuple_id_2
    */
@@ -118,12 +116,13 @@ public class ActionRoutines {
   }
 
   /**
-   * adds the elements of the {@code ArrayList} mapped to by {@code String} tuple_id_2
-   * to the {@code ArrayList} mapped to by {@code String tuple_id_1 starting from index
-   * begin and ending at index end - 1
-   * if begin is {@code null}, the start is considered to be index 0
-   * if end is{@code null}, the end is considered to be the last index of the {@code ArrayList}
-   * @param tuple_id_1
+   * Adds the elements of the {@code ArrayList} mapped to by {@code String} tuple_id_2
+   * to the {@code ArrayList} mapped to by {@code String tuple_id_1 starting at index
+   * begin and ending at index end - 1.
+   * If {@code String} begin is {@code null}, the start is considered to be index 0.
+   * If {@code String} end is {@code null}, the end is considered to be the last index of the {@code ArrayList}.
+   * 
+   * @param tuple_id_1 
    * @param tuple_id_2
    * @param begin
    * @param end
@@ -139,8 +138,9 @@ public class ActionRoutines {
   }
 
   /**
-   * adds the {@code String} variable_id to the {@code ArrayList} unpacking
-   * this is useful for the method unpack
+   * Adds the {@code String} variable_id to the {@code ArrayList} unpacking.
+   * This is useful for the method unpack.
+   * 
    * @see unpack
    * @param variable_id
    */
@@ -149,8 +149,9 @@ public class ActionRoutines {
   }
 
   /**
-   * For each {@code String} s in {@code ArrayList} unpacking, assign variable with name s to the
-   * corresponding value in the {@code ArrayList} mapped to by tuple_id 
+   * For each {@code String} S in {@code ArrayList} unpacking, assign variable with name S to the
+   * corresponding value in the {@code ArrayList} mapped to by tuple_id.
+   * 
    * @param tuple_id
    */
   void unpack(String tuple_id) {
@@ -163,9 +164,11 @@ public class ActionRoutines {
   }
 
   /**
-   * prints the content of {@code ArrayList} mapped to by id if id is in
-   * {@code HashMap} tuples. Otherwise, it prints the value mapped to by id in
-   * {@code HashMap} variables.
+   * Prints the content of {@code ArrayList} mapped to by id if id is in {@code HashMap} tuples. 
+   * Otherwise, it prints the value mapped to by id in {@code HashMap} variables.
+   * In other words, it prints a tuple if {@code String} id is the name of a tuple, a {@code String} 
+   * if id is the name of String variable, and {@code Integer} if id is the name of an integer variable.
+   * 
    * @param id
    */
   void print(String id) {
