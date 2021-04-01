@@ -1,4 +1,7 @@
 /**
+ * Action Routines used in Grammar.g file
+ * @see Grammar.g
+ * 
  * @author Amine Ghoussaini    
  */
 
@@ -100,7 +103,7 @@ public class ActionRoutines {
 
   /**
    * Adds the elements of the {@code ArrayList} mapped to b {@code String} tuple_id_2
-   * to the {@code ArrayList} mapped to by {@code String} tuple_id_1
+   * to the {@code ArrayList} mapped to by {@code String} tuple_id_1.
    * 
    * @param tuple_id_1
    * @param tuple_id_2
